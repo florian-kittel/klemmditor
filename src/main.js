@@ -34,7 +34,8 @@ const camera=new THREE.OrthographicCamera(-160,160,120,-120,1,4000); camera.posi
 const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true}); renderer.setPixelRatio(Math.min(devicePixelRatio,2)); viewport.appendChild(renderer.domElement);
 const controls=new OrbitControls(camera,renderer.domElement); controls.enableDamping=true; controls.mouseButtons={LEFT:null,MIDDLE:THREE.MOUSE.PAN,RIGHT:THREE.MOUSE.ROTATE}; controls.update();
 scene.add(new THREE.HemisphereLight(0xffffff,0x718091,2)); const light=new THREE.DirectionalLight(0xffffff,2); light.position.set(100,-100,250); scene.add(light);
-const grid=new THREE.GridHelper(2000,200,0xaab5bc,0xcdd5da); grid.rotation.x=Math.PI/2; scene.add(grid);
+// Part origins are stud centers; grid lines mark the cell boundaries between them.
+const grid=new THREE.GridHelper(2000,200,0xaab5bc,0xcdd5da); grid.rotation.x=Math.PI/2; grid.position.set(5,5,0); scene.add(grid);
 const model=new THREE.Group(), ghost=new THREE.Group(); scene.add(model,ghost); const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();
 function clear(group){ while(group.children.length){const child=group.children[0];group.remove(child);child.traverse(o=>{o.geometry?.dispose();if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose());});} }
 function makePart(p,isGhost=false){
