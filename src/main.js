@@ -46,13 +46,14 @@ const viewport=$('viewport'), scene=new THREE.Scene(); scene.background=new THRE
 const camera=new THREE.OrthographicCamera(-160,160,120,-120,1,4000); camera.position.set(200,200,200); camera.up.set(0,0,1); camera.lookAt(0,0,0);
 const renderer=new THREE.WebGLRenderer({antialias:true}); renderer.setPixelRatio(Math.min(devicePixelRatio,2)); viewport.appendChild(renderer.domElement);
 const controls=new OrbitControls(camera,renderer.domElement); controls.enableDamping=true; controls.mouseButtons={LEFT:null,MIDDLE:THREE.MOUSE.PAN,RIGHT:THREE.MOUSE.ROTATE}; controls.update();
+controls.maxPolarAngle=Math.PI/2;
 let viewPreset='iso';
 controls.addEventListener('change',requestRender);
 const viewControls=document.createElement('div');viewControls.className='view-controls';viewControls.setAttribute('role','group');viewControls.setAttribute('aria-label','Ansicht drehen');
 viewControls.innerHTML='<button type="button" id="view-left" aria-label="Ansicht 90 Grad nach links drehen" title="Ansicht nach links drehen">↶</button><button type="button" id="view-reset" title="Zur ursprünglichen Ausrichtung zurückkehren">Ausgangsrichtung · 0°</button><button type="button" id="view-right" aria-label="Ansicht 90 Grad nach rechts drehen" title="Ansicht nach rechts drehen">↷</button>';
 viewport.append(viewControls);
-function updateViewDirection(){const offset=camera.position.clone().sub(controls.target);const top=Math.hypot(offset.x,offset.y)<offset.length()*0.001;let angle=top?Math.atan2(-camera.up.x,camera.up.y):Math.atan2(offset.y,offset.x)-(viewPreset==='side'?-Math.PI/2:Math.PI/4);let degrees=Math.round(((angle*180/Math.PI+180)%360+360)%360-180);if(degrees===0)degrees=0;$('view-reset').textContent=degrees===0?'Ausgangsrichtung · 0°':`Zurück zu 0° · ${degrees>0?'+':''}${degrees}°`;$('view-reset').setAttribute('aria-label',`Aktuelle Ausrichtung ${degrees} Grad zur Ausgangsrichtung. Ausgangsrichtung wiederherstellen.`);}
-function rotateView(angle){const axis=new THREE.Vector3(0,0,1),offset=camera.position.clone().sub(controls.target);if(Math.hypot(offset.x,offset.y)<offset.length()*0.001)camera.up.applyAxisAngle(axis,angle);else camera.position.copy(controls.target).add(offset.applyAxisAngle(axis,angle));camera.lookAt(controls.target);controls.update();updateViewDirection();}
+function updateViewDirection(){const offset=camera.position.clone().sub(controls.target);let angle=Math.atan2(offset.y,offset.x)-(viewPreset==='side'||viewPreset==='top'?-Math.PI/2:Math.PI/4);let degrees=Math.round(((angle*180/Math.PI+180)%360+360)%360-180);if(degrees===0)degrees=0;$('view-reset').textContent=degrees===0?'Ausgangsrichtung · 0°':`Zurück zu 0° · ${degrees>0?'+':''}${degrees}°`;$('view-reset').setAttribute('aria-label',`Aktuelle Ausrichtung ${degrees} Grad zur Ausgangsrichtung. Ausgangsrichtung wiederherstellen.`);}
+function rotateView(angle){const axis=new THREE.Vector3(0,0,1),offset=camera.position.clone().sub(controls.target);camera.position.copy(controls.target).add(offset.applyAxisAngle(axis,angle));camera.lookAt(controls.target);controls.update();updateViewDirection();}
 $('view-left').onclick=()=>rotateView(Math.PI/2);$('view-right').onclick=()=>rotateView(-Math.PI/2);
 $('view-reset').onclick=()=>setView(viewPreset);controls.addEventListener('change',updateViewDirection);updateViewDirection();
 scene.add(new THREE.HemisphereLight(0xffffff,0x718091,2)); const light=new THREE.DirectionalLight(0xffffff,2); light.position.set(100,-100,250); scene.add(light);
@@ -188,9 +189,11 @@ $('name').onchange=e=>commit({...history.document,name:e.target.value.trim()||'M
 function setView(preset){
   cancelDrag();cancelPan();setHover(null);preview=null;updateGhost();
   controls.enableDamping=false;controls.update();viewPreset=preset;
-  controls.minPolarAngle=preset==='side'?Math.PI/2:0;controls.maxPolarAngle=preset==='side'?Math.PI/2:Math.PI;
-  camera.up.set(0,preset==='top'?1:0,preset==='top'?0:1);
-  const offset=preset==='side'?new THREE.Vector3(0,-300,0):preset==='top'?new THREE.Vector3(0,0,300):new THREE.Vector3(200,200,200);
+  controls.minPolarAngle=preset==='side'?Math.PI/2:0;controls.maxPolarAngle=Math.PI/2;
+  // OrbitControls binds its orbit axis at construction. Keep Z-up in every view.
+  camera.up.set(0,0,1);
+  // A tiny offset avoids the lookAt singularity directly on the vertical axis.
+  const offset=preset==='side'?new THREE.Vector3(0,-300,0):preset==='top'?new THREE.Vector3(0,-.0003,300):new THREE.Vector3(200,200,200);
   camera.position.copy(controls.target).add(offset);camera.lookAt(controls.target);controls.update();controls.enableDamping=true;
   for(const id of ['iso','top','side']){$(id).classList.toggle('active',id===preset);$(id).setAttribute('aria-pressed',String(id===preset));}
   updateViewDirection();requestRender();
