@@ -4,6 +4,7 @@ export const catalog = Object.freeze({
   'brick-1x1': { label: 'Stein 1 × 1', width: 1, depth: 1, height: 12 },
   'brick-1x2': { label: 'Stein 1 × 2', width: 2, depth: 1, height: 12 },
   'brick-1x4': { label: 'Stein 1 × 4', width: 4, depth: 1, height: 12 },
+  'brick-2x2': { label: 'Stein 2 × 2', width: 2, depth: 2, height: 12 },
   'plate-1x1': { label: 'Platte 1 × 1', width: 1, depth: 1, height: 4 },
   'plate-1x2': { label: 'Platte 1 × 2', width: 2, depth: 1, height: 4 },
   'plate-1x4': { label: 'Platte 1 × 4', width: 4, depth: 1, height: 4 },
