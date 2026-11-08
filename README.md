@@ -4,6 +4,8 @@ Früher Entwicklungsstand zum Konzept. Eine erste 3D-Oberfläche bietet einen kl
 
 Voraussetzung: Node.js 22 oder neuer. Installation: `npm ci`. Entwicklung: `npm run dev`. Produktionsbuild: `npm run build`. Vorhandene Domänentests: `npm test`.
 
+Ansichten: Isometrisch, Draufsicht und flache Seitenansicht. In der Seitenansicht drehen die Pfeilknöpfe um jeweils 90° zwischen den vier Seiten; die Kamera bleibt auf gleicher Höhe. Die Ausgangsrichtung lässt sich über die Winkelanzeige wiederherstellen. Ziehen im freien Arbeitsbereich verschiebt auch die Seitenansicht.
+
 Rendering: Körper und Noppen werden je Steintyp zusammengefasst und ihre Geometrien geteilt. Ein unselektierter 2×4-Stein benötigt zwei statt ursprünglich neun Zeichenaufrufe, einschließlich einer gemeinsamen Noppenkontur für die Draufsicht; Fenster und Türen drei. Modelländerungen ersetzen nur betroffene Renderobjekte, Vorschauen werden bei unveränderter Pose wiederverwendet. Im Stillstand wird kein weiterer Frame angefordert. Das sind strukturelle Optimierungen; eine FPS-Messung auf dem Zielgerät steht noch aus.
 
 Das Koordinatensystem verwendet 10 Einheiten je Noppenabstand und 4 je Plattenhöhe. X/Y sind horizontal, Z ist vertikal; Drehungen erfolgen exakt in Vierteldrehungen. Bounds sind nominale Körper und berücksichtigen noch keine Baugruppen oder Verbindungspunkte.
