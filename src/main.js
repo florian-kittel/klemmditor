@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { catalog } from './catalog.js';
+import { catalog, solids } from './catalog.js';
 import { History, validate } from './domain.js';
 import './style.css';
 
@@ -17,10 +17,20 @@ scene.add(new THREE.HemisphereLight(0xffffff,0x718091,2)); const light=new THREE
 const grid=new THREE.GridHelper(2000,200,0xaab5bc,0xcdd5da); grid.rotation.x=Math.PI/2; scene.add(grid);
 const model=new THREE.Group(), ghost=new THREE.Group(); scene.add(model,ghost); const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();
 function clear(group){ while(group.children.length){const child=group.children[0];group.remove(child);child.traverse(o=>{o.geometry?.dispose();if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose());});} }
-function makePart(p,isGhost=false){const d=catalog[p.partId],group=new THREE.Group(), mat=new THREE.MeshStandardMaterial({color:isGhost?(validate(p,history.document.parts,catalog)?'#d34848':'#2ca87f'):(p.color||'#db4437'),transparent:isGhost,opacity:isGhost?.52:1}); const body=new THREE.Mesh(new THREE.BoxGeometry(d.width*10-.5,d.depth*10-.5,d.height-.25),mat);body.position.set((d.width-1)*5,(d.depth-1)*5,d.height/2);group.add(body);for(let x=0;x<d.width;x++)for(let y=0;y<d.depth;y++){const stud=new THREE.Mesh(new THREE.CylinderGeometry(3,3,1.5,12),mat);stud.rotation.x=Math.PI/2;stud.position.set(x*10,y*10,d.height+.75);group.add(stud);}group.position.set(p.x,p.y,p.z);group.rotation.z=p.yaw*Math.PI/2;group.userData.partId=p.id;if(p.id===selected&&!isGhost){const edges=new THREE.LineSegments(new THREE.EdgesGeometry(body.geometry),new THREE.LineBasicMaterial({color:'#1169db'}));edges.position.copy(body.position);group.add(edges);}return group;}
+function makePart(p,isGhost=false){
+  const d=catalog[p.partId],group=new THREE.Group(), color=isGhost?(validate(p,history.document.parts,catalog)?'#d34848':'#2ca87f'):(p.color||'#db4437');
+  for(const box of solids(d)){
+    const transparent=isGhost||(box.insert&&d.assembly==='window');
+    const material=new THREE.MeshStandardMaterial({color:box.insert&&!isGhost?(d.assembly==='window'?'#9ccbdc':'#6c4735'):color,transparent,opacity:isGhost?.52:transparent?.5:1,depthWrite:!transparent});
+    const body=new THREE.Mesh(new THREE.BoxGeometry(box.w-.1,box.d-.1,box.h-.1),material);body.position.set(box.x+box.w/2,box.y+box.d/2,box.z+box.h/2);group.add(body);
+    if(p.id===selected&&!isGhost){const edges=new THREE.LineSegments(new THREE.EdgesGeometry(body.geometry),new THREE.LineBasicMaterial({color:'#1169db'}));edges.position.copy(body.position);group.add(edges);}
+  }
+  for(let x=0;x<d.width;x++)for(let y=0;y<d.depth;y++){const stud=new THREE.Mesh(new THREE.CylinderGeometry(3,3,1.5,12),new THREE.MeshStandardMaterial({color,transparent:isGhost,opacity:isGhost?.52:1}));stud.rotation.x=Math.PI/2;stud.position.set(x*10,y*10,d.height+.75);group.add(stud);}
+  group.position.set(p.x,p.y,p.z);group.rotation.z=p.yaw*Math.PI/2;group.userData.partId=p.id;return group;
+}
 function updateGhost(){clear(ghost);if(mode==='place'&&preview)ghost.add(makePart(preview,true));}
 function persist(){try{localStorage.setItem('klemmditor-project',JSON.stringify(history.document));$('save').textContent='Lokal gespeichert';}catch{$('save').textContent='Speichern fehlgeschlagen – JSON exportieren';}}
-function render(){clear(model);history.document.parts.forEach(p=>model.add(makePart(p)));$('name').value=history.document.name;$('details').textContent=`${history.document.parts.length} Teile${selected?' · 1 ausgewählt':''}`;const counts=new Map();for(const p of history.document.parts){const key=`${catalog[p.partId]?.label||p.partId} · ${p.color}`;counts.set(key,(counts.get(key)||0)+1);}$('materials').replaceChildren(...Array.from(counts,([name,count])=>{const row=document.createElement('div');row.className='material';row.textContent=`${name} × ${count}`;return row;}));$('undo').disabled=!history.undoStack.length;$('redo').disabled=!history.redoStack.length;updateGhost();}
+function render(){clear(model);history.document.parts.forEach(p=>model.add(makePart(p)));$('name').value=history.document.name;$('details').textContent=`${history.document.parts.length} Teile${selected?' · 1 ausgewählt':''}`;const counts=new Map();for(const p of history.document.parts){const def=catalog[p.partId], keys=def.assembly?[`${def.label} – Rahmen · ${p.color}`,`${def.label} – ${def.assembly==='window'?'Scheibe':'Türblatt'}`]:[`${def.label} · ${p.color}`];for(const key of keys)counts.set(key,(counts.get(key)||0)+1);}$('materials').replaceChildren(...Array.from(counts,([name,count])=>{const row=document.createElement('div');row.className='material';row.textContent=`${name} × ${count}`;return row;}));$('undo').disabled=!history.undoStack.length;$('redo').disabled=!history.redoStack.length;updateGhost();}
 function commit(doc){history.execute(doc);persist();render();}
 function setMode(next){mode=next;preview=null;$('select').classList.toggle('active',mode==='select');$('place').classList.toggle('active',mode==='place');$('status').textContent=mode==='place'?'Setzen · Zeiger bewegen und klicken. R dreht das Teil.':'Auswählen · Teil anklicken.';updateGhost();}
 function point(e){const r=renderer.domElement.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);raycaster.setFromCamera(pointer,camera);}
