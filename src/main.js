@@ -109,4 +109,15 @@ $('name').onchange=e=>commit({...history.document,name:e.target.value.trim()||'M
 $('iso').onclick=()=>{camera.position.copy(controls.target).add(new THREE.Vector3(200,200,200));camera.up.set(0,0,1);controls.update();};$('top').onclick=()=>{camera.position.copy(controls.target).add(new THREE.Vector3(0,0,300));camera.up.set(0,1,0);controls.update();};
 $('export').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(history.document,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='klemmditor.json';a.click();URL.revokeObjectURL(url);};
 $('import').onchange=async e=>{try{const doc=JSON.parse(await e.target.files[0].text());if(typeof doc.name!=='string'||!Array.isArray(doc.parts)||doc.parts.some(p=>!catalog[p.partId]||validate(p,[],catalog)||typeof p.id!=='string'||typeof p.color!=='string'))throw Error('Ungültiges oder nicht unterstütztes Projekt');if(!confirm('Aktuelles Projekt durch Import ersetzen?'))return;commit(doc);selected=null;render();}catch(err){alert(`Import fehlgeschlagen: ${err.message}`);}finally{e.target.value='';}};
-window.addEventListener('keydown',e=>{if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))return;const key=e.key.toLowerCase();if((e.ctrlKey||e.metaKey)&&key==='z'){e.preventDefault();(e.shiftKey?$('redo'):$('undo')).click();}else if((e.ctrlKey||e.metaKey)&&key==='y'){e.preventDefault();$('redo').click();}else if(!e.ctrlKey&&!e.metaKey&&!e.altKey&&key==='x')setMode('delete');else if(key==='v')setMode('select');else if(key==='b')setMode('place');else if(key==='r')$('rotate').click();else if(key==='delete'||key==='backspace')$('delete').click();else if(key==='escape')cancelSelection();});render();
+let controlCopy=false;
+window.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))return;
+  const key=e.key.toLowerCase();
+  if(key==='control'&&!e.repeat&&mode==='select'&&selected&&!drag&&!down){
+    const part=history.document.parts.find(p=>p.id===selected);
+    if(part){partId=part.partId;yaw=part.yaw;$('color').value=part.color;selected=null;setMode('place');$('color').dispatchEvent(new Event('input'));render();controlCopy=true;}
+  }else if((e.ctrlKey||e.metaKey)&&(key==='z'||key==='y')){
+    e.preventDefault();if(controlCopy){setMode('select');controlCopy=false;}(key==='y'||e.shiftKey?$('redo'):$('undo')).click();
+  }else if(!e.ctrlKey&&!e.metaKey&&!e.altKey&&key==='x')setMode('delete');else if(key==='v')setMode('select');else if(key==='b')setMode('place');else if(key==='r')$('rotate').click();else if(key==='delete'||key==='backspace')$('delete').click();else if(key==='escape')cancelSelection();
+});
+window.addEventListener('keyup',e=>{if(e.key==='Control')controlCopy=false;});render();
