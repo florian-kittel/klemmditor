@@ -181,9 +181,22 @@ function drawCatalog(){
   for(const [id,def] of entries){const b=document.createElement('button');b.className='catalog-item';b.textContent=def.label;b.style.gridColumn=String(Math.min(def.width,def.depth));b.style.gridRow=String(sizes.indexOf(Math.max(def.width,def.depth))+1);b.onclick=()=>{partId=id;setMode('place');};grid.append(b);}
   $('catalog').append(grid);
   const heading=document.createElement('h3');heading.className='catalog-heading';heading.textContent='Spezialsteine';$('catalog').append(heading);
-  const special=document.createElement('div');special.className='catalog-grid';
-  for(const [id,def] of Object.entries(catalog)){if(!(def.assembly||(def.corner&&id.startsWith(prefix))))continue;const b=document.createElement('button');b.className='catalog-item';b.textContent=def.label;b.onclick=()=>{partId=id;setMode('place');};special.append(b);}
-  $('catalog').append(special);
+  const groups=[
+    [brickHeight==='flat'?'Eckplatten':'Ecksteine',(id,def)=>def.corner&&id.startsWith(prefix)],
+    ['Fenster · 1 Steinhöhe',(_,def)=>def.assembly==='window'&&def.height===12],
+    ['Fenster · 3 Steinhöhen',(_,def)=>def.assembly==='window'&&def.height===36],
+    ['Türen',(_,def)=>def.assembly==='door'],
+  ];
+  for(const [title,filter] of groups){
+    const parts=Object.entries(catalog).filter(([id,def])=>filter(id,def)).sort((a,b)=>a[1].width-b[1].width||a[1].depth-b[1].depth);
+    if(!parts.length)continue;
+    const section=document.createElement('section'),caption=document.createElement('h4'),special=document.createElement('div');caption.className='catalog-subheading';caption.textContent=title;special.className='catalog-grid';
+    const assembly=!!parts[0][1].assembly;
+    if(assembly)for(const label of ['1 tief','2 tief']){const column=document.createElement('span');column.className='catalog-column-label';column.textContent=label;special.append(column);}
+    const widths=[...new Set(parts.map(([,def])=>def.width))];
+    for(const [id,def] of parts){const b=document.createElement('button');b.className='catalog-item';b.textContent=def.label;if(assembly){b.style.gridColumn=String(def.depth);b.style.gridRow=String(widths.indexOf(def.width)+2);}b.onclick=()=>{partId=id;setMode('place');};special.append(b);}
+    section.append(caption,special);$('catalog').append(section);
+  }
 }
 drawCatalog();
 $('select').onclick=()=>setMode('select');$('place').onclick=()=>setMode('place');$('rotate').onclick=()=>{yaw=(yaw+1)%4;if(preview){preview.yaw=yaw;updateGhost();}};

@@ -2,6 +2,7 @@
 :root #catalog{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
 :root #catalog{display:block}.catalog-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.catalog-heading{border-top:1px solid #dce3e6;padding-top:12px;margin:14px 0 8px}
 .catalog-item{min-width:0;min-height:40px;margin:0;padding:6px;font-size:12px;line-height:1.2}
+.catalog-subheading{margin:12px 0 6px;font-size:12px;font-weight:600;color:#526b76}.catalog-column-label{font-size:11px;color:#71828b;padding:0 6px}
 .swatches{display:inline-flex;gap:5px;vertical-align:middle}
 .swatch{width:26px;height:26px;padding:0;border:1px solid #9aa9af;border-radius:5px}
 .swatch[aria-pressed=true]{outline:2px solid #126954;outline-offset:2px}
