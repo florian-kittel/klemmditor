@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+import { mergeGeometries, mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
 import { solids } from './catalog.js';
 
 const cache = new Map();
@@ -7,7 +7,17 @@ const cache = new Map();
 export function partGeometry(id, definition) {
   if (cache.has(id)) return cache.get(id);
   const body = [], inserts = [], edges = [], rimPoints = [];
-  for (const box of solids(definition)) {
+  if (definition.corner) {
+    const outline = new THREE.Shape();
+    outline.moveTo(-4.95,-4.95);
+    for (const [x,y] of [[14.95,-4.95],[14.95,4.95],[4.95,4.95],[4.95,14.95],[-4.95,14.95]]) outline.lineTo(x,y);
+    outline.closePath();
+    const extruded = new THREE.ExtrudeGeometry(outline,{depth:definition.height-.1,bevelEnabled:false,steps:1});
+    extruded.translate(0,0,.05);
+    const geometry = mergeVertices(extruded);extruded.dispose();
+    body.push(geometry);edges.push(new THREE.EdgesGeometry(geometry));
+  }
+  for (const box of definition.corner ? [] : solids(definition)) {
     const geometry = new THREE.BoxGeometry(box.w-.1, box.d-.1, box.h-.1);
     geometry.translate(box.x+box.w/2, box.y+box.d/2, box.z+box.h/2);
     (box.insert ? inserts : body).push(geometry);
