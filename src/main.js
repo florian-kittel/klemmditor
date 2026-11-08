@@ -53,6 +53,9 @@ function makePart(p,isGhost=false){
   const d=catalog[p.partId],group=new THREE.Group(), color=isGhost?(validate(p,history.document.parts,catalog,drag?new Set([drag.original.id]):undefined)?'#d34848':'#2ca87f'):(p.color||'#db4437');
   const geometry=partGeometry(p.partId,d);
   group.add(new THREE.Mesh(geometry.body,new THREE.MeshStandardMaterial({color,transparent:isGhost,opacity:isGhost?.52:1})));
+  const baseColor=new THREE.Color(color), luminance=baseColor.r*.2126+baseColor.g*.7152+baseColor.b*.0722;
+  const rims=new THREE.LineSegments(geometry.rims,new THREE.LineBasicMaterial({color:luminance<.18?'#999999':'#333333',transparent:true,opacity:isGhost?.25:.4,depthWrite:false}));
+  rims.raycast=()=>{};group.add(rims);
   if(geometry.insert){const transparent=isGhost||d.assembly==='window';group.add(new THREE.Mesh(geometry.insert,new THREE.MeshStandardMaterial({color:isGhost?color:d.assembly==='window'?'#9ccbdc':'#6c4735',transparent,opacity:isGhost?.52:transparent?.5:1,depthWrite:!transparent})));}
   if(p.id===selected&&!isGhost)group.add(new THREE.LineSegments(geometry.edges,new THREE.LineBasicMaterial({color:'#1169db'})));
   group.position.set(p.x,p.y,p.z);group.rotation.z=p.yaw*Math.PI/2;group.userData.partId=p.id;return group;
