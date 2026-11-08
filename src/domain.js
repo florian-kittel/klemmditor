@@ -24,8 +24,12 @@ export function overlaps(a, b) {
   return a.minX < b.maxX && a.maxX > b.minX && a.minY < b.maxY && a.maxY > b.minY && a.minZ < b.maxZ && a.maxZ > b.minZ;
 }
 
+const boundsCache = new WeakMap();
 function solidBounds(part, definition) {
-  return solids(definition).map(box => {
+  const key = `${part.x},${part.y},${part.z},${part.yaw}`;
+  const cached = boundsCache.get(part);
+  if (cached?.key === key && cached.definition === definition) return cached.boxes;
+  const boxes = solids(definition).map(box => {
     const corners = [];
     for (const x of [box.x, box.x + box.w]) for (const y of [box.y, box.y + box.d]) {
       const p = rotate({ x, y, z: 0 }, part.yaw);
@@ -33,6 +37,8 @@ function solidBounds(part, definition) {
     }
     return { minX: Math.min(...corners.map(p=>p.x)), maxX: Math.max(...corners.map(p=>p.x)), minY: Math.min(...corners.map(p=>p.y)), maxY: Math.max(...corners.map(p=>p.y)), minZ: part.z + box.z, maxZ: part.z + box.z + box.h };
   });
+  boundsCache.set(part, { key, definition, boxes });
+  return boxes;
 }
 
 export function validate(part, parts, catalog, excluded = new Set()) {
