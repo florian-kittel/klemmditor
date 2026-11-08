@@ -6,6 +6,22 @@ import './style.css';
 
 document.querySelector('#app').innerHTML = `<header><strong>▦ Klemmditor</strong><input id="name" aria-label="Projektname"><span id="save"></span><div class="spacer"></div><button id="undo">↶ Rückgängig</button><button id="redo">↷ Wiederholen</button><button id="export">JSON exportieren</button><label class="button">Importieren<input id="import" type="file" accept="application/json" hidden></label></header><main><aside><h2>Teilekatalog</h2><p>Teil auswählen und auf die Arbeitsfläche klicken.</p><div id="catalog"></div><h3>Farbe</h3><input type="color" id="color" value="#db4437" aria-label="Teilefarbe"><h3>Bauhöhe</h3><label>Modus <select id="placement"><option value="surface">Oberfläche</option><option value="fixed">Feste Höhe</option></select></label><label>Plattenhöhen <input type="number" id="height" value="0" min="0" step="1"></label><p>Bei fester Höhe gilt der Wert für die Unterkante des Teils.</p></aside><section class="workspace"><div class="tools"><button id="select" class="active">Auswählen · V</button><button id="place">Setzen · B</button><button id="rotate">Drehen · R</button><button id="delete">Löschen · Entf</button><span></span><button id="iso">Isometrisch</button><button id="top">Draufsicht</button></div><div id="viewport" tabindex="0" aria-label="3D-Arbeitsfläche"></div><div id="status" role="status">Teil im Katalog wählen, um mit dem Bauen zu beginnen.</div></section><aside class="right"><h2>Projekt</h2><div id="details"></div><h3>Materialliste</h3><div id="materials"></div><p>Früher Entwicklungsstand. Verbindungen, Gruppen und weitere Funktionen folgen.</p></aside></main>`;
 const $ = id => document.getElementById(id);
+$('color').value = '#ffffff';
+const swatches = document.createElement('div');
+swatches.className = 'swatches';
+swatches.setAttribute('aria-label', 'Standardfarben');
+for (const [label, value] of [['Weiß', '#ffffff'], ['Grau', '#888888'], ['Schwarz', '#171717']]) {
+  const button = document.createElement('button');
+  button.type = 'button'; button.className = 'swatch'; button.style.backgroundColor = value; button.dataset.color = value;
+  button.title = label; button.setAttribute('aria-label', label);
+  button.setAttribute('aria-pressed', String(value === $('color').value));
+  button.onclick = () => { $('color').value = value; $('color').dispatchEvent(new Event('input')); };
+  swatches.append(button);
+}
+$('color').before(swatches);
+$('color').addEventListener('input', () => {
+  for (const button of swatches.children) button.setAttribute('aria-pressed', String(button.dataset.color === $('color').value));
+});
 let saved; try { saved = JSON.parse(localStorage.getItem('klemmditor-project')); } catch { saved = null; }
 const history = new History(saved && Array.isArray(saved.parts) ? saved : {name:'Mein Projekt',parts:[]});
 let selected=null, mode='select', partId='brick-2x4', yaw=0, preview=null, blocked=false, lastPointer=null, down=null;
