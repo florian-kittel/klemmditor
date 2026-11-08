@@ -16,6 +16,10 @@ export const catalog = Object.freeze({
   'door-4x2': { label: 'Tür 4 × 2', width: 4, depth: 2, height: 72, assembly: 'door' },
   'window-4x1': { label: 'Fenster 4 × 1', width: 4, depth: 1, height: 36, assembly: 'window' },
   'window-2x1': { label: 'Fenster 2 × 1', width: 2, depth: 1, height: 36, assembly: 'window' },
+  'window-2x1-low': { label: 'Fenster 2 × 1 · 1 hoch', width: 2, depth: 1, height: 12, assembly: 'window' },
+  'window-4x1-low': { label: 'Fenster 4 × 1 · 1 hoch', width: 4, depth: 1, height: 12, assembly: 'window' },
+  'window-2x2-low': { label: 'Fenster 2 × 2 · 1 hoch', width: 2, depth: 2, height: 12, assembly: 'window' },
+  'window-4x2-low': { label: 'Fenster 4 × 2 · 1 hoch', width: 4, depth: 2, height: 12, assembly: 'window' },
   'door-4x1': { label: 'Tür 4 × 1', width: 4, depth: 1, height: 72, assembly: 'door' },
 });
 
