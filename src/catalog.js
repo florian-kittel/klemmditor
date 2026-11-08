@@ -7,6 +7,7 @@ export const catalog = Object.freeze({
   'plate-1x1': { label: 'Platte 1 × 1', width: 1, depth: 1, height: 4 },
   'plate-1x2': { label: 'Platte 1 × 2', width: 2, depth: 1, height: 4 },
   'plate-1x4': { label: 'Platte 1 × 4', width: 4, depth: 1, height: 4 },
+  'plate-2x2': { label: 'Platte 2 × 2', width: 2, depth: 2, height: 4 },
   'brick-corner': { label: 'Eckstein 2 × 2', width: 2, depth: 2, height: 12, corner: true },
   'plate-corner': { label: 'Eckplatte 2 × 2', width: 2, depth: 2, height: 4, corner: true },
   'window-4x2': { label: 'Fenster 4 × 2', width: 4, depth: 2, height: 36, assembly: 'window' },
