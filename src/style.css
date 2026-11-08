@@ -8,4 +8,4 @@
 input[type=color]{width:30px;height:30px;padding:2px;vertical-align:middle}
 .height-choice{display:flex;gap:6px;margin-bottom:8px}.height-choice button{flex:1;min-width:0;padding:7px;font-size:12px}
 .tools{overflow-x:auto}.tools button{white-space:nowrap}
-#viewport{position:relative}.view-controls{position:absolute;right:14px;bottom:14px;display:flex;gap:4px;padding:5px;border:1px solid #d7dfe3;border-radius:9px;background:rgba(255,255,255,.94);box-shadow:0 2px 8px #263b481a}.view-controls button{min-height:38px;padding:7px 10px}.view-controls button:first-child,.view-controls button:last-child{font-size:20px;line-height:1}.view-controls #view-reset{font-size:12px}
+#viewport{position:relative}.view-controls{position:absolute;right:14px;top:14px;z-index:1;display:flex;gap:4px;padding:5px;border:1px solid #d7dfe3;border-radius:9px;background:rgba(255,255,255,.94);box-shadow:0 2px 8px #263b481a}.view-controls button{min-height:38px;padding:7px 10px}.view-controls button:first-child,.view-controls button:last-child{font-size:20px;line-height:1}.view-controls #view-reset{font-size:12px}
