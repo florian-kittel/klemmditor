@@ -77,7 +77,26 @@ function syncModel(){
   requestRender();
 }
 function persist(){try{localStorage.setItem('klemmditor-project',JSON.stringify(history.document));$('save').textContent='Lokal gespeichert';}catch{$('save').textContent='Speichern fehlgeschlagen – JSON exportieren';}}
-function render(){syncModel();$('name').value=history.document.name;$('details').textContent=`${history.document.parts.length} Teile${selected?' · 1 ausgewählt':''}`;const counts=new Map();for(const p of history.document.parts){const def=catalog[p.partId], keys=def.assembly?[`${def.label} – Rahmen · ${p.color}`,`${def.label} – ${def.assembly==='window'?'Scheibe':'Türblatt'}`]:[`${def.label} · ${p.color}`];for(const key of keys)counts.set(key,(counts.get(key)||0)+1);}$('materials').replaceChildren(...Array.from(counts,([name,count])=>{const row=document.createElement('div');row.className='material';row.textContent=`${name} × ${count}`;return row;}));$('undo').disabled=!history.undoStack.length;$('redo').disabled=!history.redoStack.length;updateGhost();}
+function colorName(hex){
+  const palette=[['Weiß','#ffffff'],['Grau','#888888'],['Hellgrau','#cccccc'],['Schwarz','#171717'],['Rot','#db4437'],['Blau','#2455cc'],['Hellblau','#9ccbdc'],['Grün','#299447'],['Gelb','#ffdc00'],['Orange','#ff8800'],['Braun','#6c4735'],['Rosa','#ff99cc'],['Violett','#8844aa']];
+  const rgb=value=>[1,3,5].map(i=>parseInt(value.slice(i,i+2),16));const value=rgb(hex);
+  return palette.reduce((best,entry)=>{const distance=rgb(entry[1]).reduce((sum,v,i)=>sum+(v-value[i])**2,0);return distance<best.distance?{name:entry[0],distance}:best;},{name:'Eigene Farbe',distance:Infinity}).name;
+}
+function renderMaterials(){
+  const counts=new Map();
+  function add(id,label,color){const key=JSON.stringify([id,color]);const row=counts.get(key);if(row)row.count++;else counts.set(key,{label,color,count:1});}
+  for(const p of history.document.parts){const def=catalog[p.partId];if(def.assembly){add(p.partId+'-frame',def.label+' – Rahmen',p.color);add(p.partId+'-insert',def.label+(def.assembly==='window'?' – Scheibe':' – Türblatt'),def.assembly==='window'?'#9ccbdc':'#6c4735');}else add(p.partId,def.label,p.color);}
+  const table=document.createElement('table');table.className='material-table';
+  table.innerHTML='<thead><tr><th scope="col">Anzahl</th><th scope="col">Steinmaße</th><th scope="col">Farbe</th></tr></thead>';
+  const body=document.createElement('tbody');
+  for(const item of counts.values()){
+    const row=document.createElement('tr'),quantity=document.createElement('td'),label=document.createElement('td'),color=document.createElement('td'),swatch=document.createElement('span');
+    quantity.textContent=item.count;label.textContent=item.label;swatch.className='material-color';swatch.style.backgroundColor=item.color;swatch.setAttribute('aria-hidden','true');
+    color.append(swatch,document.createTextNode(colorName(item.color)));row.append(quantity,label,color);body.append(row);
+  }
+  table.append(body);$('materials').replaceChildren(table);
+}
+function render(){syncModel();$('name').value=history.document.name;$('details').textContent=`${history.document.parts.length} Teile${selected?' · 1 ausgewählt':''}`;renderMaterials();$('undo').disabled=!history.undoStack.length;$('redo').disabled=!history.redoStack.length;updateGhost();}
 function commit(doc){history.execute(doc);persist();render();}
 function setMode(next){cancelDrag();cancelPan();setHover(null);mode=next;preview=null;blocked=false;$('select').classList.toggle('active',mode==='select');$('place').classList.toggle('active',mode==='place');deleteTool.classList.toggle('active',mode==='delete');deleteTool.setAttribute('aria-pressed',String(mode==='delete'));renderer.domElement.style.cursor=mode==='delete'?'crosshair':'';$('status').textContent=mode==='place'?'Setzen · Mausrad dreht, Klick setzt, Strg+Klick setzt mehrfach. Esc oder Rechtsklick bricht ab.':mode==='delete'?'Löschen · Stein anklicken. Mit Strg+Z rückgängig machen.':'Auswählen · Stein oder freies Raster ziehen.';updateGhost();}
 function cancelSelection(){selected=null;setMode('select');render();}
