@@ -73,7 +73,16 @@ $('catalog').before(heightChoice);
 function drawCatalog(){
   for(const button of heightChoice.children){const active=button.dataset.height===brickHeight;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));}
   $('catalog').replaceChildren();
-  for(const [id,def] of Object.entries(catalog)){if(!def.assembly&&!id.startsWith(brickHeight==='flat'?'plate-':'brick-'))continue;const b=document.createElement('button');b.className='catalog-item';b.textContent=def.label;b.onclick=()=>{partId=id;setMode('place');};$('catalog').append(b);}
+  const prefix=brickHeight==='flat'?'plate-':'brick-';
+  const grid=document.createElement('div');grid.className='catalog-grid';
+  const entries=Object.entries(catalog).filter(([id,def])=>id.startsWith(prefix)&&!def.corner&&!def.assembly);
+  const sizes=[...new Set(entries.map(([,def])=>Math.max(def.width,def.depth)))].sort((a,b)=>a-b);
+  for(const [id,def] of entries){const b=document.createElement('button');b.className='catalog-item';b.textContent=def.label;b.style.gridColumn=String(Math.min(def.width,def.depth));b.style.gridRow=String(sizes.indexOf(Math.max(def.width,def.depth))+1);b.onclick=()=>{partId=id;setMode('place');};grid.append(b);}
+  $('catalog').append(grid);
+  const heading=document.createElement('h3');heading.className='catalog-heading';heading.textContent='Spezialsteine';$('catalog').append(heading);
+  const special=document.createElement('div');special.className='catalog-grid';
+  for(const [id,def] of Object.entries(catalog)){if(!(def.assembly||(def.corner&&id.startsWith(prefix))))continue;const b=document.createElement('button');b.className='catalog-item';b.textContent=def.label;b.onclick=()=>{partId=id;setMode('place');};special.append(b);}
+  $('catalog').append(special);
 }
 drawCatalog();
 $('select').onclick=()=>setMode('select');$('place').onclick=()=>setMode('place');$('rotate').onclick=()=>{yaw=(yaw+1)%4;if(preview){preview.yaw=yaw;updateGhost();}};
