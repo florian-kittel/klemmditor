@@ -6,3 +6,4 @@
 .swatch[aria-pressed=true]{outline:2px solid #126954;outline-offset:2px}
 input[type=color]{width:30px;height:30px;padding:2px;vertical-align:middle}
 .height-choice{display:flex;gap:6px;margin-bottom:8px}.height-choice button{flex:1;min-width:0;padding:7px;font-size:12px}
+.tools{overflow-x:auto}.tools button{white-space:nowrap}
