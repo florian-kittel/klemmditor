@@ -41,7 +41,7 @@ function makePart(p,isGhost=false){
     const body=new THREE.Mesh(new THREE.BoxGeometry(box.w-.1,box.d-.1,box.h-.1),material);body.position.set(box.x+box.w/2,box.y+box.d/2,box.z+box.h/2);group.add(body);
     if(p.id===selected&&!isGhost){const edges=new THREE.LineSegments(new THREE.EdgesGeometry(body.geometry),new THREE.LineBasicMaterial({color:'#1169db'}));edges.position.copy(body.position);group.add(edges);}
   }
-  for(let x=0;x<d.width;x++)for(let y=0;y<d.depth;y++){const stud=new THREE.Mesh(new THREE.CylinderGeometry(3,3,1.5,12),new THREE.MeshStandardMaterial({color,transparent:isGhost,opacity:isGhost?.52:1}));stud.rotation.x=Math.PI/2;stud.position.set(x*10,y*10,d.height+.75);group.add(stud);}
+  for(let x=0;x<d.width;x++)for(let y=0;y<d.depth;y++){if(d.corner&&x===1&&y===1)continue;const stud=new THREE.Mesh(new THREE.CylinderGeometry(3,3,1.5,12),new THREE.MeshStandardMaterial({color,transparent:isGhost,opacity:isGhost?.52:1}));stud.rotation.x=Math.PI/2;stud.position.set(x*10,y*10,d.height+.75);group.add(stud);}
   group.position.set(p.x,p.y,p.z);group.rotation.z=p.yaw*Math.PI/2;group.userData.partId=p.id;return group;
 }
 function updateGhost(){clear(ghost);if(mode==='place'&&preview)ghost.add(makePart(preview,true));}
@@ -56,7 +56,16 @@ renderer.domElement.addEventListener('pointermove',e=>{if(blocked&&lastPointer&&
 renderer.domElement.addEventListener('pointerup',e=>{if(!down||e.button!==0||Math.hypot(e.clientX-down.x,e.clientY-down.y)>4){down=null;return;}down=null;if(mode==='place'){if(e.pointerType==='touch'){project(e);return;}if(!preview||blocked||validate(preview,history.document.parts,catalog))return;commit({...history.document,parts:[...history.document.parts,{...preview,id:crypto.randomUUID()}]});blocked=true;lastPointer={x:e.clientX,y:e.clientY};}else{point(e);const hit=raycaster.intersectObjects(model.children,true)[0];let obj=hit?.object;while(obj&&!obj.userData.partId)obj=obj.parent;selected=obj?.userData.partId||null;render();}});
 renderer.domElement.addEventListener('pointercancel',()=>down=null);window.addEventListener('blur',()=>down=null);
 function resize(){const w=viewport.clientWidth,h=viewport.clientHeight;renderer.setSize(w,h);const a=w/h;camera.left=-120*a;camera.right=120*a;camera.top=120;camera.bottom=-120;camera.updateProjectionMatrix();}new ResizeObserver(resize).observe(viewport);resize();function frame(){controls.update();renderer.render(scene,camera);requestAnimationFrame(frame);}frame();
-for(const [id,def] of Object.entries(catalog)){const b=document.createElement('button');b.className='catalog-item';b.textContent=def.label;b.onclick=()=>{partId=id;setMode('place');};$('catalog').append(b);}
+let brickHeight='normal';
+const heightChoice=document.createElement('div'); heightChoice.className='height-choice'; heightChoice.setAttribute('role','group'); heightChoice.setAttribute('aria-label','Steinhöhe');
+for(const [value,label] of [['normal','Normal'],['flat','Flach']]){const b=document.createElement('button');b.type='button';b.textContent=label;b.dataset.height=value;b.onclick=()=>{brickHeight=value;const prefix=value==='flat'?'plate-':'brick-';if(/^(brick|plate)-/.test(partId)){const variant=prefix+partId.replace(/^(brick|plate)-/,'');if(catalog[variant]){partId=variant;if(preview){preview.partId=variant;updateGhost();}}}drawCatalog();};heightChoice.append(b);}
+$('catalog').before(heightChoice);
+function drawCatalog(){
+  for(const button of heightChoice.children){const active=button.dataset.height===brickHeight;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));}
+  $('catalog').replaceChildren();
+  for(const [id,def] of Object.entries(catalog)){if(!def.assembly&&!id.startsWith(brickHeight==='flat'?'plate-':'brick-'))continue;const b=document.createElement('button');b.className='catalog-item';b.textContent=def.label;b.onclick=()=>{partId=id;setMode('place');};$('catalog').append(b);}
+}
+drawCatalog();
 $('select').onclick=()=>setMode('select');$('place').onclick=()=>setMode('place');$('rotate').onclick=()=>{yaw=(yaw+1)%4;if(preview){preview.yaw=yaw;updateGhost();}};
 $('delete').onclick=()=>{if(selected){commit({...history.document,parts:history.document.parts.filter(p=>p.id!==selected)});selected=null;render();}};
 $('undo').onclick=()=>{if(history.undo()){selected=null;persist();render();}};$('redo').onclick=()=>{if(history.redo()){selected=null;persist();render();}};
