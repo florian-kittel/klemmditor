@@ -12,6 +12,9 @@ export const catalog = Object.freeze({
   'window-4x2': { label: 'Fenster 4 × 2', width: 4, depth: 2, height: 36, assembly: 'window' },
   'window-2x2': { label: 'Fenster 2 × 2', width: 2, depth: 2, height: 36, assembly: 'window' },
   'door-4x2': { label: 'Tür 4 × 2', width: 4, depth: 2, height: 72, assembly: 'door' },
+  'window-4x1': { label: 'Fenster 4 × 1', width: 4, depth: 1, height: 36, assembly: 'window' },
+  'window-2x1': { label: 'Fenster 2 × 1', width: 2, depth: 1, height: 36, assembly: 'window' },
+  'door-4x1': { label: 'Tür 4 × 1', width: 4, depth: 1, height: 72, assembly: 'door' },
 });
 
 // Frame and insert are separate solids; the rest of the opening stays empty.
