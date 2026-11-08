@@ -3,10 +3,17 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { catalog } from './catalog.js';
 import { partGeometry } from './part-geometry.js';
 import { History, validate } from './domain.js';
+import { ProjectStore, isProjectDocument } from './projects.js';
 import './style.css';
 
 document.querySelector('#app').innerHTML = `<header><strong>▦ Klemmditor</strong><input id="name" aria-label="Projektname"><span id="save"></span><div class="spacer"></div><button id="undo">↶ Rückgängig</button><button id="redo">↷ Wiederholen</button><button id="export">JSON exportieren</button><label class="button">Importieren<input id="import" type="file" accept="application/json" hidden></label></header><main><aside><h2>Teilekatalog</h2><p>Teil auswählen und auf die Arbeitsfläche klicken.</p><div id="catalog"></div><h3>Farbe</h3><input type="color" id="color" value="#db4437" aria-label="Teilefarbe"><h3>Bauhöhe</h3><label>Modus <select id="placement"><option value="surface">Oberfläche</option><option value="fixed">Feste Höhe</option></select></label><label>Plattenhöhen <input type="number" id="height" value="0" min="0" step="1"></label><p>Bei fester Höhe gilt der Wert für die Unterkante des Teils.</p></aside><section class="workspace"><div class="tools"><button id="select" class="active">Auswählen · V</button><button id="place">Setzen · B</button><button id="rotate">Drehen · R</button><button id="delete">Löschen · Entf</button><span></span><button id="iso">Isometrisch</button><button id="top">Draufsicht</button></div><div id="viewport" tabindex="0" aria-label="3D-Arbeitsfläche"></div><div id="status" role="status">Teil im Katalog wählen, um mit dem Bauen zu beginnen.</div></section><aside class="right"><h2>Projekt</h2><div id="details"></div><h3>Materialliste</h3><div id="materials"></div><p>Früher Entwicklungsstand. Verbindungen, Gruppen und weitere Funktionen folgen.</p></aside></main>`;
 const $ = id => document.getElementById(id);
+const newProjectButton=document.createElement('button');newProjectButton.textContent='Neu';newProjectButton.type='button';
+const openProjectButton=document.createElement('button');openProjectButton.textContent='Öffnen';openProjectButton.type='button';
+$('name').before(newProjectButton,openProjectButton);
+const projectDialog=document.createElement('dialog');projectDialog.className='project-dialog';projectDialog.setAttribute('aria-labelledby','project-dialog-title');
+projectDialog.innerHTML='<div class="project-dialog-header"><h2 id="project-dialog-title">Lokale Projekte öffnen</h2><button type="button" class="project-close" aria-label="Schließen">✕</button></div><div class="project-list"></div>';
+document.body.append(projectDialog);projectDialog.querySelector('.project-close').onclick=()=>projectDialog.close();
 const sideButton=document.createElement('button');sideButton.id='side';sideButton.textContent='Seitenansicht';$('top').after(sideButton);
 const deleteTool = document.createElement('button');
 deleteTool.id = 'delete-tool'; deleteTool.textContent = 'Löschwerkzeug · X';
@@ -28,8 +35,10 @@ $('color').before(swatches);
 $('color').addEventListener('input', () => {
   for (const button of swatches.children) button.setAttribute('aria-pressed', String(button.dataset.color === $('color').value));
 });
-let saved; try { saved = JSON.parse(localStorage.getItem('klemmditor-project')); } catch { saved = null; }
-const history = new History(saved && Array.isArray(saved.parts) ? saved : {name:'Mein Projekt',parts:[]});
+let projectStore,initialProject,startupError=null;
+try{projectStore=new ProjectStore(localStorage);initialProject=projectStore.startup();}catch(error){startupError=error;}
+let currentProjectId=initialProject?.id||crypto.randomUUID();
+const history = new History(initialProject?.document||{name:'Mein Projekt',parts:[]});
 let selected=null, hovered=null, mode='select', partId='brick-2x4', yaw=0, preview=null, blocked=false, lastPointer=null, down=null, drag=null, pan=null;
 let framePending=false;
 function requestRender(){if(!framePending){framePending=true;requestAnimationFrame(()=>{framePending=false;controls.update();renderer.render(scene,camera);});}}
@@ -76,7 +85,30 @@ function syncModel(){
   for(const group of existing.values()){model.remove(group);clear(group);}
   requestRender();
 }
-function persist(){try{localStorage.setItem('klemmditor-project',JSON.stringify(history.document));$('save').textContent='Lokal gespeichert';}catch{$('save').textContent='Speichern fehlgeschlagen – JSON exportieren';}}
+function persist(){try{if(!projectStore)throw Error('Speicher nicht verfügbar');projectStore.save(currentProjectId,history.document);projectStore.activate(currentProjectId);$('save').textContent='Lokal gespeichert';return true;}catch{$('save').textContent='Speichern fehlgeschlagen – JSON exportieren';return false;}}
+function openProject(record){
+  selected=null;setMode('select');
+  currentProjectId=record.id;history.document=structuredClone(record.document);history.undoStack=[];history.redoStack=[];
+  controls.target.set(0,0,0);camera.zoom=1;camera.updateProjectionMatrix();setView('iso');render();$('save').textContent='Lokal gespeichert';
+}
+function createProject(doc){
+  if(!persist()){alert('Der aktuelle Stand konnte nicht gespeichert werden. Bitte zuerst JSON exportieren.');return;}
+  try{const id=crypto.randomUUID(),record=projectStore.save(id,doc);projectStore.activate(id);openProject(record);}catch(error){alert(`Projekt konnte nicht angelegt werden: ${error.message}`);}
+}
+newProjectButton.onclick=()=>{const name=prompt('Name des neuen Projekts','Neues Projekt');if(name!==null)createProject({name:name.trim()||'Neues Projekt',parts:[]});};
+openProjectButton.onclick=()=>{
+  if(!persist()){alert('Der aktuelle Stand konnte nicht gespeichert werden. Bitte zuerst JSON exportieren.');return;}
+  try{
+    const list=projectDialog.querySelector('.project-list');list.replaceChildren();
+    for(const record of projectStore.list()){
+      const button=document.createElement('button');button.type='button';button.className='project-entry';
+      const title=document.createElement('strong'),detail=document.createElement('span');title.textContent=record.document.name+(record.id===currentProjectId?' · geöffnet':'');detail.textContent=`${record.document.parts.length} Teile · ${new Date(record.updatedAt).toLocaleString('de-DE')}`;button.append(title,detail);
+      button.onclick=()=>{try{const latest=projectStore.read(record.id);if(!persist())throw Error('Aktueller Stand nicht gespeichert. Bitte JSON exportieren.');projectStore.activate(latest.id);openProject(latest);projectDialog.close();}catch(error){alert(`Öffnen fehlgeschlagen: ${error.message}`);}};
+      list.append(button);
+    }
+    cancelDrag();cancelPan();setHover(null);projectDialog.showModal();
+  }catch(error){alert(`Projektliste konnte nicht geladen werden: ${error.message}`);}
+};
 function colorName(hex){
   const palette=[['Weiß','#ffffff'],['Grau','#888888'],['Hellgrau','#cccccc'],['Schwarz','#171717'],['Rot','#db4437'],['Blau','#2455cc'],['Hellblau','#9ccbdc'],['Grün','#299447'],['Gelb','#ffdc00'],['Orange','#ff8800'],['Braun','#6c4735'],['Rosa','#ff99cc'],['Violett','#8844aa']];
   const rgb=value=>[1,3,5].map(i=>parseInt(value.slice(i,i+2),16));const value=rgb(hex);
@@ -165,10 +197,10 @@ function setView(preset){
 }
 $('iso').onclick=()=>setView('iso');$('top').onclick=()=>setView('top');sideButton.onclick=()=>setView('side');
 $('export').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(history.document,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='klemmditor.json';a.click();URL.revokeObjectURL(url);};
-$('import').onchange=async e=>{try{const doc=JSON.parse(await e.target.files[0].text());if(typeof doc.name!=='string'||!Array.isArray(doc.parts)||doc.parts.some(p=>!catalog[p.partId]||validate(p,[],catalog)||typeof p.id!=='string'||typeof p.color!=='string'))throw Error('Ungültiges oder nicht unterstütztes Projekt');if(!confirm('Aktuelles Projekt durch Import ersetzen?'))return;commit(doc);selected=null;render();}catch(err){alert(`Import fehlgeschlagen: ${err.message}`);}finally{e.target.value='';}};
+$('import').onchange=async e=>{try{if(!e.target.files[0])return;const doc=JSON.parse(await e.target.files[0].text());if(!isProjectDocument(doc))throw Error('Ungültiges oder nicht unterstütztes Projekt');createProject(doc);}catch(err){alert(`Import fehlgeschlagen: ${err.message}`);}finally{e.target.value='';}};
 let controlCopy=false;
 window.addEventListener('keydown',e=>{
-  if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))return;
+  if(projectDialog.open||/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))return;
   const key=e.key.toLowerCase();
   if(key==='control'&&!e.repeat&&mode==='select'&&selected&&!drag&&!down){
     const part=history.document.parts.find(p=>p.id===selected);
@@ -178,3 +210,4 @@ window.addEventListener('keydown',e=>{
   }else if(!e.ctrlKey&&!e.metaKey&&!e.altKey&&key==='x')setMode('delete');else if(key==='v')setMode('select');else if(key==='b')setMode('place');else if(key==='r')$('rotate').click();else if(key==='delete'||key==='backspace')$('delete').click();else if(key==='escape')cancelSelection();
 });
 window.addEventListener('keyup',e=>{if(e.key==='Control')controlCopy=false;});render();
+if(startupError){$('save').textContent='Speicherstand nicht lesbar – Original bleibt erhalten';}else persist();
