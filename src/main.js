@@ -232,3 +232,7 @@ window.addEventListener('keydown',e=>{
 });
 window.addEventListener('keyup',e=>{if(e.key==='Control')controlCopy=false;});render();
 if(startupError){$('save').textContent='Speicherstand nicht lesbar – Original bleibt erhalten';}else persist();
+
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+}
