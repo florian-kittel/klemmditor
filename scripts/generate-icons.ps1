@@ -107,15 +107,15 @@ function Draw-Icon([string]$name, [int]$size, [switch]$fullBleed, [switch]$maska
     $outputGraphics = [System.Drawing.Graphics]::FromImage($output)
     $outputGraphics.InterpolationMode = 'HighQualityBicubic'
     $outputGraphics.PixelOffsetMode = 'Half'
-    $resampling = [System.Drawing.Imaging.ImageAttributes]::new()
-    $resampling.SetWrapMode('TileFlipXY')
-    $destination = [System.Drawing.Rectangle]::new(0, 0, $size, $size)
-    $outputGraphics.DrawImage(
-        $canvas, $destination, 0, 0, $supersampled, $supersampled, 'Pixel', $resampling
-    )
+    if ($fullBleed -or $maskable) {
+        # Keep the outside pixels opaque even when the resampling filter crosses the canvas edge.
+        $outputGraphics.ScaleTransform($size / 512, $size / 512)
+        $outputGraphics.FillRectangle($background, 0, 0, 512, 512)
+        $outputGraphics.ResetTransform()
+    }
+    $outputGraphics.DrawImage($canvas, 0, 0, $size, $size)
     $output.Save((Join-Path $iconDirectory $name), [System.Drawing.Imaging.ImageFormat]::Png)
 
-    $resampling.Dispose()
     $outputGraphics.Dispose()
     $output.Dispose()
     $graphics.Dispose()
