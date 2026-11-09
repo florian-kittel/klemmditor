@@ -1,5 +1,7 @@
 # Klemmditor
 
+**Live-Version:** https://florian-kittel.github.io/klemmditor/ – lässt sich im Browser (Chrome/Edge: Install-Symbol in der Adressleiste) als App installieren.
+
 Früher Entwicklungsstand zum Konzept. Eine erste 3D-Oberfläche bietet einen kleinen Katalog, Platzieren auf Oberflächen oder fester Bauhöhe, Auswahl, Löschen und Undo/Redo. Der Stand ist noch kein fertiger Editor.
 
 Voraussetzung: Node.js 22 oder neuer. Installation: `npm ci`. Entwicklung: `npm run dev`. Produktionsbuild: `npm run build`. Vorhandene Domänentests: `npm test`.
