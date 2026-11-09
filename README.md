@@ -4,6 +4,8 @@
 
 Früher Entwicklungsstand zum Konzept. Eine erste 3D-Oberfläche bietet einen kleinen Katalog, Platzieren auf Oberflächen oder fester Bauhöhe, Auswahl, Löschen und Undo/Redo. Der Stand ist noch kein fertiger Editor.
 
+Haus nach einem Bild erstellen: Die [KI-Anleitung](public/ai-guide.md) zusammen mit dem Bild an eine bildfähige KI geben und das erzeugte JSON über „Importieren“ öffnen. Ein kleines [Beispielhaus](public/example-house.json) zeigt das fertige Importformat. Beide Dateien werden auch beim Build für GitHub Pages bereitgestellt.
+
 Voraussetzung: Node.js 22 oder neuer. Installation: `npm ci`. Entwicklung: `npm run dev`. Produktionsbuild: `npm run build`. Vorhandene Domänentests: `npm test`.
 
 Veröffentlichen auf GitHub Pages: `npm run deploy`. Das baut lokal und pusht den Inhalt von `dist/` auf den Branch `gh-pages`, von dem GitHub Pages ausliefert. Ein Push auf `main` aktualisiert die Live-Version **nicht** – nach Änderungen also immer `npm run deploy` ausführen.

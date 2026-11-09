@@ -1,0 +1,1571 @@
+{
+  "name": "Beispielhaus",
+  "parts": [
+    {
+      "id": "teil-1",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-2",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 10,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-3",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 20,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-4",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 30,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-5",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 40,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-6",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 50,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-7",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 60,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-8",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 70,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-9",
+      "partId": "brick-1x1",
+      "x": 10,
+      "y": 0,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-10",
+      "partId": "brick-1x1",
+      "x": 10,
+      "y": 70,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-11",
+      "partId": "brick-1x1",
+      "x": 20,
+      "y": 0,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-12",
+      "partId": "brick-1x1",
+      "x": 20,
+      "y": 70,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-13",
+      "partId": "brick-1x1",
+      "x": 30,
+      "y": 70,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-14",
+      "partId": "brick-1x1",
+      "x": 40,
+      "y": 70,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-15",
+      "partId": "brick-1x1",
+      "x": 50,
+      "y": 70,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-16",
+      "partId": "brick-1x1",
+      "x": 60,
+      "y": 70,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-17",
+      "partId": "brick-1x1",
+      "x": 70,
+      "y": 0,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-18",
+      "partId": "brick-1x1",
+      "x": 70,
+      "y": 70,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-19",
+      "partId": "brick-1x1",
+      "x": 80,
+      "y": 0,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-20",
+      "partId": "brick-1x1",
+      "x": 80,
+      "y": 70,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-21",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 0,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-22",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 10,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-23",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 20,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-24",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 30,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-25",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 40,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-26",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 50,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-27",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 60,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-28",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 70,
+      "z": 0,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-29",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 0,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-30",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 10,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-31",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 20,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-32",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 30,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-33",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 40,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-34",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 50,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-35",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 60,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-36",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 70,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-37",
+      "partId": "brick-1x1",
+      "x": 10,
+      "y": 0,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-38",
+      "partId": "brick-1x1",
+      "x": 10,
+      "y": 70,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-39",
+      "partId": "brick-1x1",
+      "x": 20,
+      "y": 0,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-40",
+      "partId": "brick-1x1",
+      "x": 20,
+      "y": 70,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-41",
+      "partId": "brick-1x1",
+      "x": 50,
+      "y": 70,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-42",
+      "partId": "brick-1x1",
+      "x": 60,
+      "y": 70,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-43",
+      "partId": "brick-1x1",
+      "x": 70,
+      "y": 0,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-44",
+      "partId": "brick-1x1",
+      "x": 70,
+      "y": 70,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-45",
+      "partId": "brick-1x1",
+      "x": 80,
+      "y": 0,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-46",
+      "partId": "brick-1x1",
+      "x": 80,
+      "y": 70,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-47",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 0,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-48",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 10,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-49",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 20,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-50",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 30,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-51",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 40,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-52",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 50,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-53",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 60,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-54",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 70,
+      "z": 12,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-55",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 0,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-56",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 10,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-57",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 20,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-58",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 30,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-59",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 40,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-60",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 50,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-61",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 60,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-62",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 70,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-63",
+      "partId": "brick-1x1",
+      "x": 10,
+      "y": 0,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-64",
+      "partId": "brick-1x1",
+      "x": 10,
+      "y": 70,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-65",
+      "partId": "brick-1x1",
+      "x": 20,
+      "y": 0,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-66",
+      "partId": "brick-1x1",
+      "x": 20,
+      "y": 70,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-67",
+      "partId": "brick-1x1",
+      "x": 50,
+      "y": 70,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-68",
+      "partId": "brick-1x1",
+      "x": 60,
+      "y": 70,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-69",
+      "partId": "brick-1x1",
+      "x": 70,
+      "y": 0,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-70",
+      "partId": "brick-1x1",
+      "x": 70,
+      "y": 70,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-71",
+      "partId": "brick-1x1",
+      "x": 80,
+      "y": 0,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-72",
+      "partId": "brick-1x1",
+      "x": 80,
+      "y": 70,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-73",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 0,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-74",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 10,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-75",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 20,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-76",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 30,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-77",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 40,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-78",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 50,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-79",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 60,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-80",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 70,
+      "z": 24,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-81",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 0,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-82",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 10,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-83",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 20,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-84",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 30,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-85",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 40,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-86",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 50,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-87",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 60,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-88",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 70,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-89",
+      "partId": "brick-1x1",
+      "x": 10,
+      "y": 0,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-90",
+      "partId": "brick-1x1",
+      "x": 10,
+      "y": 70,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-91",
+      "partId": "brick-1x1",
+      "x": 20,
+      "y": 0,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-92",
+      "partId": "brick-1x1",
+      "x": 20,
+      "y": 70,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-93",
+      "partId": "brick-1x1",
+      "x": 50,
+      "y": 70,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-94",
+      "partId": "brick-1x1",
+      "x": 60,
+      "y": 70,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-95",
+      "partId": "brick-1x1",
+      "x": 70,
+      "y": 0,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-96",
+      "partId": "brick-1x1",
+      "x": 70,
+      "y": 70,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-97",
+      "partId": "brick-1x1",
+      "x": 80,
+      "y": 0,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-98",
+      "partId": "brick-1x1",
+      "x": 80,
+      "y": 70,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-99",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 0,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-100",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 10,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-101",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 20,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-102",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 30,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-103",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 40,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-104",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 50,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-105",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 60,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-106",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 70,
+      "z": 36,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-107",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 0,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-108",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 10,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-109",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 20,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-110",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 30,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-111",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 40,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-112",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 50,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-113",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 60,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-114",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 70,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-115",
+      "partId": "brick-1x1",
+      "x": 10,
+      "y": 0,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-116",
+      "partId": "brick-1x1",
+      "x": 10,
+      "y": 70,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-117",
+      "partId": "brick-1x1",
+      "x": 20,
+      "y": 0,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-118",
+      "partId": "brick-1x1",
+      "x": 20,
+      "y": 70,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-119",
+      "partId": "brick-1x1",
+      "x": 30,
+      "y": 70,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-120",
+      "partId": "brick-1x1",
+      "x": 40,
+      "y": 70,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-121",
+      "partId": "brick-1x1",
+      "x": 50,
+      "y": 70,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-122",
+      "partId": "brick-1x1",
+      "x": 60,
+      "y": 70,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-123",
+      "partId": "brick-1x1",
+      "x": 70,
+      "y": 0,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-124",
+      "partId": "brick-1x1",
+      "x": 70,
+      "y": 70,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-125",
+      "partId": "brick-1x1",
+      "x": 80,
+      "y": 0,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-126",
+      "partId": "brick-1x1",
+      "x": 80,
+      "y": 70,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-127",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 0,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-128",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 10,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-129",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 20,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-130",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 30,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-131",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 40,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-132",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 50,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-133",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 60,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-134",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 70,
+      "z": 48,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-135",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 0,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-136",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 10,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-137",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 20,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-138",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 30,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-139",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 40,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-140",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 50,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-141",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 60,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-142",
+      "partId": "brick-1x1",
+      "x": 0,
+      "y": 70,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-143",
+      "partId": "brick-1x1",
+      "x": 10,
+      "y": 0,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-144",
+      "partId": "brick-1x1",
+      "x": 10,
+      "y": 70,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-145",
+      "partId": "brick-1x1",
+      "x": 20,
+      "y": 0,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-146",
+      "partId": "brick-1x1",
+      "x": 20,
+      "y": 70,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-147",
+      "partId": "brick-1x1",
+      "x": 30,
+      "y": 70,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-148",
+      "partId": "brick-1x1",
+      "x": 40,
+      "y": 70,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-149",
+      "partId": "brick-1x1",
+      "x": 50,
+      "y": 70,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-150",
+      "partId": "brick-1x1",
+      "x": 60,
+      "y": 70,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-151",
+      "partId": "brick-1x1",
+      "x": 70,
+      "y": 0,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-152",
+      "partId": "brick-1x1",
+      "x": 70,
+      "y": 70,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-153",
+      "partId": "brick-1x1",
+      "x": 80,
+      "y": 0,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-154",
+      "partId": "brick-1x1",
+      "x": 80,
+      "y": 70,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-155",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 0,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-156",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 10,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-157",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 20,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-158",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 30,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-159",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 40,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-160",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 50,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-161",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 60,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-162",
+      "partId": "brick-1x1",
+      "x": 90,
+      "y": 70,
+      "z": 60,
+      "yaw": 0,
+      "color": "#e7d3ad"
+    },
+    {
+      "id": "teil-163",
+      "partId": "door-4x1",
+      "x": 30,
+      "y": 0,
+      "z": 0,
+      "yaw": 0,
+      "color": "#70452e"
+    },
+    {
+      "id": "teil-164",
+      "partId": "window-2x1",
+      "x": 30,
+      "y": 70,
+      "z": 12,
+      "yaw": 0,
+      "color": "#ffffff"
+    },
+    {
+      "id": "teil-165",
+      "partId": "plate-2x4",
+      "x": 0,
+      "y": 0,
+      "z": 72,
+      "yaw": 0,
+      "color": "#853d32"
+    },
+    {
+      "id": "teil-166",
+      "partId": "plate-2x4",
+      "x": 0,
+      "y": 40,
+      "z": 72,
+      "yaw": 0,
+      "color": "#853d32"
+    },
+    {
+      "id": "teil-167",
+      "partId": "plate-2x4",
+      "x": 20,
+      "y": 0,
+      "z": 72,
+      "yaw": 0,
+      "color": "#853d32"
+    },
+    {
+      "id": "teil-168",
+      "partId": "plate-2x4",
+      "x": 20,
+      "y": 40,
+      "z": 72,
+      "yaw": 0,
+      "color": "#853d32"
+    },
+    {
+      "id": "teil-169",
+      "partId": "plate-2x4",
+      "x": 40,
+      "y": 0,
+      "z": 72,
+      "yaw": 0,
+      "color": "#853d32"
+    },
+    {
+      "id": "teil-170",
+      "partId": "plate-2x4",
+      "x": 40,
+      "y": 40,
+      "z": 72,
+      "yaw": 0,
+      "color": "#853d32"
+    },
+    {
+      "id": "teil-171",
+      "partId": "plate-2x4",
+      "x": 60,
+      "y": 0,
+      "z": 72,
+      "yaw": 0,
+      "color": "#853d32"
+    },
+    {
+      "id": "teil-172",
+      "partId": "plate-2x4",
+      "x": 60,
+      "y": 40,
+      "z": 72,
+      "yaw": 0,
+      "color": "#853d32"
+    },
+    {
+      "id": "teil-173",
+      "partId": "plate-2x4",
+      "x": 80,
+      "y": 0,
+      "z": 72,
+      "yaw": 0,
+      "color": "#853d32"
+    },
+    {
+      "id": "teil-174",
+      "partId": "plate-2x4",
+      "x": 80,
+      "y": 40,
+      "z": 72,
+      "yaw": 0,
+      "color": "#853d32"
+    }
+  ]
+}
