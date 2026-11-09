@@ -1,7 +1,7 @@
 // Service Worker: macht die App installierbar und offline nutzbar.
-// Seiten: erst Netzwerk (immer aktuelle Version), bei Offline aus dem Cache.
-// Dateien (JS/CSS/Icons, mit Hash im Namen): erst Cache, sonst Netzwerk.
-const CACHE = 'klemmditor-v2';
+// Dateien mit Hash im Namen (assets/): erst Cache, sonst Netzwerk – sie ändern sich nie.
+// Alles andere (Seite, Manifest, Icons): erst Netzwerk (immer aktuell), offline aus dem Cache.
+const CACHE = 'klemmditor-v3';
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(['./', './manifest.webmanifest'])));
@@ -16,30 +16,24 @@ self.addEventListener('activate', event => {
   );
 });
 
+const store = (key, response) => {
+  if (response.ok) {
+    const copy = response.clone();
+    caches.open(CACHE).then(cache => cache.put(key, copy));
+  }
+  return response;
+};
+
 self.addEventListener('fetch', event => {
   const { request } = event;
-  if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
+  const url = new URL(request.url);
+  if (request.method !== 'GET' || url.origin !== self.location.origin) return;
 
-  if (request.mode === 'navigate') {
-    event.respondWith(
-      fetch(request)
-        .then(response => {
-          const copy = response.clone();
-          caches.open(CACHE).then(cache => cache.put('./', copy));
-          return response;
-        })
-        .catch(() => caches.match('./'))
-    );
+  if (url.pathname.includes('/assets/')) {
+    event.respondWith(caches.match(request).then(cached => cached || fetch(request).then(r => store(request, r))));
     return;
   }
 
-  event.respondWith(
-    caches.match(request).then(cached => cached || fetch(request).then(response => {
-      if (response.ok) {
-        const copy = response.clone();
-        caches.open(CACHE).then(cache => cache.put(request, copy));
-      }
-      return response;
-    }))
-  );
+  const key = request.mode === 'navigate' ? './' : request;
+  event.respondWith(fetch(request).then(r => store(key, r)).catch(() => caches.match(key)));
 });
