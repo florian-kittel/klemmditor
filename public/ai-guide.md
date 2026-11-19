@@ -62,6 +62,10 @@ Die Maße sind **Breite in X × Tiefe in Y × Höhe in Einheiten** bei `yaw: 0`.
 | door-4x2 | 4 × 2 × 72 |
 | door-4x1 | 4 × 1 × 72 |
 
+`color` ist ein Hex-Wert wie `#db4437` oder der feste Wert `transparent` für klare Glassteine.
+
+Optional kann das Projekt `groups` enthalten, um zusammengehörige Teile zu bündeln: `"groups": [{ "id": "gruppe-1", "name": "Erdgeschoss", "partIds": ["teil-1", "teil-2"] }]`. Jede Gruppe braucht mindestens zwei Teile, und jedes Teil gehört höchstens zu einer Gruppe.
+
 Fenster und Türen sind fertige Einzelteile, keine aus Steinen zusammengesetzten Rahmen. Ihre `color` bestimmt die Rahmenfarbe; Glas beziehungsweise Türblatt haben feste Farben. Bei Ecksteinen liegt die L-Form bei `yaw: 0` auf den lokalen Noppen (0,0), (1,0) und (0,1). Behandle Fenster und Türen bei der Planung vorsichtshalber als vollständig belegte Quader.
 
 Prüfe vor der Ausgabe das JSON, alle IDs, Teilnamen, Rasterwerte und die Positionen auf Überschneidungen. Wenn du Code ausführen kannst, verwende ihn zum Erzeugen und Prüfen der vollständigen Teileliste. Behaupte keine Prüfung, die du nicht durchgeführt hast.

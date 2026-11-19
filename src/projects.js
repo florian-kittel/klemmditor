@@ -7,10 +7,13 @@ const ACTIVE='klemmditor:active-project';
 export function isProjectDocument(doc){
   if(!doc||typeof doc.name!=='string'||!Array.isArray(doc.parts))return false;
   const ids=new Set();
-  return doc.parts.every(p=>{
+  const partsValid=doc.parts.every(p=>{
     if(!p||typeof p.id!=='string'||ids.has(p.id)||typeof p.color!=='string'||!catalog[p.partId]||validate(p,[],catalog))return false;
     ids.add(p.id);return true;
   });
+  // Groups are optional so older projects stay valid.
+  const groupsValid=doc.groups===undefined||(Array.isArray(doc.groups)&&doc.groups.every(g=>g&&typeof g.id==='string'&&typeof g.name==='string'&&Array.isArray(g.partIds)&&g.partIds.every(id=>ids.has(id))));
+  return partsValid&&groupsValid;
 }
 
 export class ProjectStore {

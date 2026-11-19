@@ -50,6 +50,63 @@ export function validate(part, parts, catalog, excluded = new Set()) {
   return conflict ? `Kollision mit ${conflict.id}` : null;
 }
 
+export function validateAll(parts, existing, catalog, excluded = new Set()) {
+  for (const part of parts) { const error = validate(part, existing, catalog, excluded); if (error) return error; }
+  return null;
+}
+
+// Copy template for several parts. Offsets are relative to the lowest part, so placing the
+// template on a surface puts the bottom of the copy there. Groups fully inside are copied too.
+export function makeStamp(parts, groups = []) {
+  const anchor = parts.reduce((low, p) => (p.z < low.z ? p : low));
+  const index = new Map(parts.map((p, i) => [p.id, i]));
+  return {
+    parts: parts.map(p => ({ partId: p.partId, color: p.color, yaw: p.yaw, dx: p.x - anchor.x, dy: p.y - anchor.y, dz: p.z - anchor.z })),
+    groups: groups.filter(g => g.partIds.every(id => index.has(id))).map(g => ({ name: g.name, members: g.partIds.map(id => index.get(id)) })),
+  };
+}
+
+// Parts of a stamp placed at an anchor position, rotated as a whole by `yaw` quarter turns.
+export function stampParts(stamp, { x, y, z, yaw }) {
+  return stamp.parts.map((r, i) => {
+    const o = rotate({ x: r.dx, y: r.dy, z: r.dz }, yaw);
+    return { id: `preview-${i}`, partId: r.partId, color: r.color, x: x + o.x, y: y + o.y, z: z + o.z, yaw: (r.yaw + yaw) % 4 };
+  });
+}
+
+// Pivot for turning parts as a whole: the middle of their footprint. It must lie on a stud center
+// (x≡0, y≡0) or a grid crossing (x≡5, y≡5) so every part stays on the raster; when the footprint
+// has one even and one odd side the middle is off by half a stud and is moved onto the raster.
+export function rotationPivot(parts, catalog) {
+  const boxes = parts.map(p => bounds(p, catalog[p.partId]));
+  const cx = (Math.min(...boxes.map(b => b.minX)) + Math.max(...boxes.map(b => b.maxX))) / 2;
+  const cy = (Math.min(...boxes.map(b => b.minY)) + Math.max(...boxes.map(b => b.maxY))) / 2;
+  const mod = v => ((v % 10) + 10) % 10;
+  return { x: cx, y: mod(cy) === mod(cx) ? cy : cy - 5 };
+}
+
+// Turns parts by quarter turns around a pivot. Reuse the pivot for consecutive turns of the same
+// parts; a recomputed pivot can drift by half a stud and four turns would not restore the start.
+export function rotateParts(parts, turns, pivot) {
+  return parts.map(p => {
+    const o = rotate({ x: p.x - pivot.x, y: p.y - pivot.y, z: p.z }, turns);
+    return { ...p, x: pivot.x + o.x, y: pivot.y + o.y, yaw: (((p.yaw + turns) % 4) + 4) % 4 };
+  });
+}
+
+// A part belongs to at most one group; groups need at least two existing parts.
+export function pruneGroups(doc) {
+  const ids = new Set(doc.parts.map(p => p.id)), seen = new Set();
+  const groups = (doc.groups || []).map(g => ({ ...g, partIds: g.partIds.filter(id => ids.has(id) && !seen.has(id) && seen.add(id)) })).filter(g => g.partIds.length > 1);
+  return { ...doc, groups };
+}
+
+export function createGroup(doc, partIds, id, name) {
+  const members = new Set(partIds);
+  const others = (doc.groups || []).map(g => ({ ...g, partIds: g.partIds.filter(p => !members.has(p)) }));
+  return pruneGroups({ ...doc, groups: [...others, { id, name, partIds: [...members] }] });
+}
+
 export class History {
   constructor(document) { this.document = structuredClone(document); this.undoStack = []; this.redoStack = []; }
   execute(next) { this.undoStack.push(structuredClone(this.document)); this.document = structuredClone(next); this.redoStack = []; }
